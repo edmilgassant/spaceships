@@ -1,41 +1,60 @@
-#!/usr/bin/env python
-# use python2. I know it's outdated and have been using python3.8
+## Simple python script for updating system
+## What is in the python script?
+- This python script updates and upgrades system with sudo priviledges.
+- I also added a recommendation at end of script
+### Tools used:
+- import os = this module allows script to function with the operating system
+- import sys = this module gives the script sudo privileges (root/sudo)
+- import time = this module allows a function called sleep or time.sleep to give a specific time before the next execution
 
-# These are variables.
-spaceships = 100
-space_in_a_spaceship = 4.0
-astronauts = 30
-passengers = 90
-spaceships_not_flown = spaceships - astronauts
-spaceships_flown = astronauts
-spaceship_capacity = spaceships_flown * space_in_a_spaceship
-average_passengers_per_spaceship = passengers / spaceships_flown
+### Python script
+- Here is my python script. It can be ran using ./python_script.py or python3 python_script.py
+- In this example, I will just add #!/usr/bin/env python3 and will allow me to just used ./ to run script
 
-print "There are", spaceships, "spaceships available"
-print "There are", space_in_a_spaceship, "space available"
-print "There will be", astronauts, "astronauts availabel"
-print "There is also", passengers, "passenger in the spaceships"
-print "There's gonna be", spaceships_not_flown, "empty spaceships"
-print "But so far, there has been", spaceships_flown, "spacehsips in space"
-print "The spaceship's capacity was now", spaceship_capacity, "after exiting the wormhole!!!"
-print "Maybe we can add about", average_passengers_per_spaceship, "aliens per spaceship that exit the wor>
-print
-print
-print
-print
-print
-print
-print "General! Do we need", spaceships, "for war against evil?"
-print "Do we also have at least our", space_in_a_spaceship, "weapons on the spacehsip?"
-print "Well, lieutenant, if we have", astronauts, "more spaceships, we should be good."
-print "General, there is", spaceship_capacity, "more building, what is the status of those?"
-print "I'll be able to get that information in", average_passengers_per_spaceship, "hours."
-print "Ok General! we should have about", spaceships_not_flown, "super soilders by that time."
-print "What is ur ETA to earth from andromeda galaxy?"
-print "With this technology, it won't take more than", spaceships_flown, "seconds."
-print "Hoorah!"
-print "Um, lieutenant, that's for marines"
-print
-print
-print
-print "The end"
+```python3
+#!/usr/bin/env python3
+
+import os
+import sys # this module gives this script sudo privilege to run.
+import time
+
+def update_system():
+    # Ensure the script is executed with administrative privileges (root/sudo)
+    if os.geteuid() != 0:
+        print ()
+        time.sleep(1)
+        print ("This script requires administrative privileges.")
+        time.sleep(2)
+        print ("Administrative privilege recognized. Please verify with password:")
+        time.sleep(1)
+        os.execvp("sudo", ["sudo", sys.executable] + sys.argv)
+        return
+
+    # Run the apt update command to refresh package lists
+    print ()
+    print ("######## Running system update... ########")
+    print ()
+    time.sleep(2)
+    os.system("apt update")
+
+    # Run the apt upgrade command to upgrade installed packages
+    print ()
+    print ("######## Running system upgrade... ########")
+    print ()
+    time.sleep(2)
+    os.system("apt upgrade") # you can add "apt upgrade -y" to bypass if you want.
+    print ()
+    time.sleep(2)
+    print ("System update completed successfully.")
+    print ()
+    time.sleep(2)
+    print ("Recommend:")
+    print ()
+    time.sleep(1)
+    print ("Updating and upgrading system often and apply needed patches")
+    print ()
+    time.sleep(1)
+
+if __name__ == "__main__":
+    update_system()
+```
